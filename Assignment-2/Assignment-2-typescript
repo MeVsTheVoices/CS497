@@ -1,0 +1,1330 @@
+Script started on 2023-09-07 22:06:43-07:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="132" LINES="69"]
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man setfacl
+[?2004l[?1049h[22;0;0t[?1h=SETFACL(1)                                            Access Control Lists                                            SETFACL(1)[m
+[m
+[1mNAME[0m[m
+       setfacl - set file access control lists[m
+[m
+[1mSYNOPSIS[0m[m
+       [1msetfacl[0m [-bkndRLPvh] [{-m|-x} acl_spec] [{-M|-X} acl_file] file ...[m
+[m
+       [1msetfacl[0m --restore={file|-}[m
+[m
+[1mDESCRIPTION[0m[m
+       This  utility  sets Access Control Lists (ACLs) of files and directories.  On the command line, a sequence of commands is[m
+       followed by a sequence of files (which in turn can be followed by another sequence of commands, ...).[m
+[m
+       The [4m-m[24m and [4m-x[24m options expect an ACL on the command line. Multiple ACL entries are separated by  comma  characters  (`,').[m
+       The  [4m-M[24m  and  [4m-X[24m options read an ACL from a file or from standard input. The ACL entry format is described in Section ACL[m
+       ENTRIES.[m
+[m
+       The [4m--set[24m and [4m--set-file[24m options set the ACL of a file or a directory. The previous ACL is  replaced.   ACL  entries  for[m
+       this operation must include permissions.[m
+[m
+       The  [4m-m[24m  [4m(--modify)[24m and [4m-M[24m [4m(--modify-file)[24m options modify the ACL of a file or directory.  ACL entries for this operation[m
+       must include permissions.[m
+[m
+       The [4m-x[24m [4m(--remove)[24m and [4m-X[24m [4m(--remove-file)[24m options remove ACL entries. It is not an error to remove an entry which does not[m
+       exist.  Only ACL entries without the [4mperms[24m field are accepted as parameters, unless POSIXLY_CORRECT is defined.[m
+[m
+       When  reading  from files using the [4m-M[24m and [4m-X[24m options, setfacl accepts the output getfacl produces.  There is at most one[m
+       ACL entry per line. After a Pound sign (`#'), everything up to the end of the line is treated as a comment.[m
+[m
+       If setfacl is used on a file system which does not support ACLs, setfacl operates on the file mode  permission  bits.  If[m
+       the ACL does not fit completely in the permission bits, setfacl modifies the file mode permission bits to reflect the ACL[m
+       as closely as possible, writes an error message to standard error, and returns with an exit status greater than 0.[m
+[m
+   [1mPERMISSIONS[0m[m
+       The file owner and processes capable of CAP_FOWNER are granted the right to modify ACLs of a file. This is  analogous  to[m
+       the  permissions  required  for  accessing  the  file  mode.  (On  current  Linux systems, root is the only user with the[m
+       CAP_FOWNER capability.)[m
+[m
+[1mOPTIONS[0m[m
+       [4m-b,[24m [4m--remove-all[24m[m
+           Remove all extended ACL entries. The base ACL entries of the owner, group and others are retained.[m
+[m
+       [4m-k,[24m [4m--remove-default[24m[m
+           Remove the Default ACL. If no Default ACL exists, no warnings are issued.[m
+[m
+       [4m-n,[24m [4m--no-mask[24m[m
+           Do not recalculate the effective rights mask. The default behavior of setfacl is to recalculate the ACL  mask  entry,[m
+           unless a mask entry was explicitly given.  The mask entry is set to the union of all permissions of the owning group,[m
+           and all named user and group entries. (These are exactly the entries affected by the mask entry).[m
+[m
+       [4m--mask[24m[m
+           Do recalculate the effective rights mask, even if an ACL mask entry was explicitly given. (See the [4m-n[24m option.)[m
+[m
+       [4m-d,[24m [4m--default[24m[m
+           All operations apply to the Default ACL. Regular ACL entries in the input set are promoted to  Default  ACL  entries.[m
+           Default ACL entries in the input set are discarded. (A warning is issued if that happens).[m
+[m
+       [4m--restore={file|-}[24m[m
+           Restore  a  permission backup created by `getfacl -R' or similar. All permissions of a complete directory subtree are[m
+           restored using this mechanism. If the input contains owner comments or group comments, setfacl  attempts  to  restore[m
+           the  owner and owning group. If the input contains flags comments (which define the setuid, setgid, and sticky bits),[m
+           setfacl sets those three bits accordingly; otherwise, it clears them. This option cannot be mixed with other  options[m
+           except `--test'.  If the file specified is '[1m-[0m', then it will be read from standard input.[m
+[m
+       [4m--test[24m[m
+           Test mode. Instead of changing the ACLs of any files, the resulting ACLs are listed.[m
+[m
+[7m Manual page setfacl(1) line 1 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-R,[24m [4m--recursive[24m[m
+[7m Manual page setfacl(1) line 2 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Apply operations to all files and directories recursively. This option cannot be mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 3 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 4 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-L,[24m [4m--logical[24m[m
+[7m Manual page setfacl(1) line 5 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Logical  walk,  follow  symbolic links to directories. The default behavior is to follow symbolic link arguments, and[m
+[7m Manual page setfacl(1) line 6 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           skip symbolic links encountered in subdirectories.  Only effective in combination with -R.   This  option  cannot  be[m
+[7m Manual page setfacl(1) line 7 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 8 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-P,[24m [4m--physical[24m[m
+[7m Manual page setfacl(1) line 10 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Physical walk, do not follow symbolic links to directories.  This also skips symbolic link arguments.  Only effective[m
+[7m Manual page setfacl(1) line 11 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           in combination with -R.  This option cannot be mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 12 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 13 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-v,[24m [4m--version[24m[m
+[7m Manual page setfacl(1) line 14 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print the version of setfacl and exit.[m
+[7m Manual page setfacl(1) line 15 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 16 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-h,[24m [4m--help[24m[m
+[7m Manual page setfacl(1) line 17 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print help explaining the command line options.[m
+[7m Manual page setfacl(1) line 18 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 19 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m--[24m  End of command line options. All remaining parameters are interpreted as file names, even if they start with a dash.[m
+[7m Manual page setfacl(1) line 20 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 21 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-[24m   If the file name parameter is a single dash, setfacl reads a list of files from standard input.[m
+[7m Manual page setfacl(1) line 22 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 23 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K   [1mACL[0m [1mENTRIES[0m[m
+[7m Manual page setfacl(1) line 24 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       The setfacl utility recognizes the following ACL entry formats (blanks inserted for clarity):[m
+[7m Manual page setfacl(1) line 25 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 26 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [d[efault]:] [u[ser]:][4muid[24m [:[4mperms[24m][m
+[7m Manual page setfacl(1) line 27 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              Permissions of a named user. Permissions of the file owner if [4muid[24m is empty.[m
+[7m Manual page setfacl(1) line 28 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 29 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [d[efault]:] g[roup]:[4mgid[24m [:[4mperms[24m][m
+[7m Manual page setfacl(1) line 30 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              Permissions of a named group. Permissions of the owning group if [4mgid[24m is empty.[m
+[7m Manual page setfacl(1) line 31 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 32 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [d[efault]:] m[ask][:] [:[4mperms[24m][m
+[7m Manual page setfacl(1) line 33 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              Effective rights mask[m
+[7m Manual page setfacl(1) line 34 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 35 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [d[efault]:] o[ther][:] [:[4mperms[24m][m
+[7m Manual page setfacl(1) line 36 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ groupas[Kdd[K[K[K[K[K[K[K[Kman groupadd
+[?2004l[?1049h[22;0;0t[?1h=GROUPADD(8)                                        System Management Commands                                        GROUPADD(8)[m
+[m
+[1mNAME[0m[m
+       groupadd - create a new group[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mgroupadd[0m [[4moptions[24m] [4mgroup[24m[m
+[m
+[1mDESCRIPTION[0m[m
+       The [1mgroupadd[0m command creates a new group account using the values specified on the command line plus the default values[m
+       from the system. The new group will be entered into the system files as needed.[m
+[m
+[1mOPTIONS[0m[m
+       The options which apply to the [1mgroupadd[0m command are:[m
+[m
+       [1m-f[0m, [1m--force[0m[m
+           This option causes the command to simply exit with success status if the specified group already exists. When used[m
+           with [1m-g[0m, and the specified GID already exists, another (unique) GID is chosen (i.e.  [1m-g[0m is turned off).[m
+[m
+       [1m-g[0m, [1m--gid[0m [4mGID[24m[m
+           The numerical value of the group's ID. This value must be unique, unless the [1m-o[0m option is used. The value must be[m
+           non-negative. The default is to use the smallest ID value greater than or equal to [1mGID_MIN[0m and greater than every[m
+           other group.[m
+[m
+           See also the [1m-r[0m option and the [1mGID_MAX[0m description.[m
+[m
+       [1m-h[0m, [1m--help[0m[m
+           Display help message and exit.[m
+[m
+       [1m-K[0m, [1m--key[0m [4mKEY[24m=[4mVALUE[24m[m
+           Overrides /etc/login.defs defaults (GID_MIN, GID_MAX and others). Multiple [1m-K[0m options can be specified.[m
+[m
+           Example: [1m-K[0m [4mGID_MIN[24m=[4m100[24m  [1m-K[0m [4mGID_MAX[24m=[4m499[24m[m
+[m
+           Note: [1m-K[0m [4mGID_MIN[24m=[4m10[24m,[4mGID_MAX[24m=[4m499[24m doesn't work yet.[m
+[m
+       [1m-o[0m, [1m--non-unique[0m[m
+           This option permits to add a group with a non-unique GID.[m
+[m
+       [1m-p[0m, [1m--password[0m [4mPASSWORD[24m[m
+           The encrypted password, as returned by [1mcrypt[0m(3). The default is to disable the password.[m
+[m
+           [1mNote:[0m This option is not recommended because the password (or encrypted password) will be visible by users listing[m
+           the processes.[m
+[m
+           You should make sure the password respects the system's password policy.[m
+[m
+       [1m-r[0m, [1m--system[0m[m
+           Create a system group.[m
+[m
+           The numeric identifiers of new system groups are chosen in the [1mSYS_GID_MIN[0m-[1mSYS_GID_MAX[0m range, defined in login.defs,[m
+           instead of [1mGID_MIN[0m-[1mGID_MAX[0m.[m
+[m
+       [1m-R[0m, [1m--root[0m [4mCHROOT_DIR[24m[m
+           Apply changes in the [4mCHROOT_DIR[24m directory and use the configuration files from the [4mCHROOT_DIR[24m directory.[m
+[m
+       [1m-P[0m, [1m--prefix[0m [4mPREFIX_DIR[24m[m
+           Apply changes in the [4mPREFIX_DIR[24m directory and use the configuration files from the [4mPREFIX_DIR[24m directory. This option[m
+           does not chroot and is intended for preparing a cross-compilation target. Some limitations: NIS and LDAP users/groups[m
+           are not verified. PAM authentication is using the host files. No SELINUX support.[m
+[m
+[1mCONFIGURATION[0m[m
+       The following configuration variables in /etc/login.defs change the behavior of this tool:[m
+[m
+       [1mGID_MAX[0m (number), [1mGID_MIN[0m (number)[m
+           Range of group IDs used for the creation of regular groups by [1museradd[0m, [1mgroupadd[0m, or [1mnewusers[0m.[m
+[m
+           The default value for [1mGID_MIN[0m (resp.  [1mGID_MAX[0m) is 1000 (resp. 60000).[m
+[7m Manual page groupadd(8) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ grou[K[K[K[Kman groupadd
+[?2004l[?1049h[22;0;0t[?1h=GROUPADD(8)                                        System Management Commands                                        GROUPADD(8)[m
+[m
+[1mNAME[0m[m
+       groupadd - create a new group[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mgroupadd[0m [[4moptions[24m] [4mgroup[24m[m
+[m
+[1mDESCRIPTION[0m[m
+       The [1mgroupadd[0m command creates a new group account using the values specified on the command line plus the default values[m
+       from the system. The new group will be entered into the system files as needed.[m
+[m
+[1mOPTIONS[0m[m
+       The options which apply to the [1mgroupadd[0m command are:[m
+[m
+       [1m-f[0m, [1m--force[0m[m
+           This option causes the command to simply exit with success status if the specified group already exists. When used[m
+           with [1m-g[0m, and the specified GID already exists, another (unique) GID is chosen (i.e.  [1m-g[0m is turned off).[m
+[m
+       [1m-g[0m, [1m--gid[0m [4mGID[24m[m
+           The numerical value of the group's ID. This value must be unique, unless the [1m-o[0m option is used. The value must be[m
+           non-negative. The default is to use the smallest ID value greater than or equal to [1mGID_MIN[0m and greater than every[m
+           other group.[m
+[m
+           See also the [1m-r[0m option and the [1mGID_MAX[0m description.[m
+[m
+       [1m-h[0m, [1m--help[0m[m
+           Display help message and exit.[m
+[m
+       [1m-K[0m, [1m--key[0m [4mKEY[24m=[4mVALUE[24m[m
+           Overrides /etc/login.defs defaults (GID_MIN, GID_MAX and others). Multiple [1m-K[0m options can be specified.[m
+[m
+           Example: [1m-K[0m [4mGID_MIN[24m=[4m100[24m  [1m-K[0m [4mGID_MAX[24m=[4m499[24m[m
+[m
+           Note: [1m-K[0m [4mGID_MIN[24m=[4m10[24m,[4mGID_MAX[24m=[4m499[24m doesn't work yet.[m
+[m
+       [1m-o[0m, [1m--non-unique[0m[m
+           This option permits to add a group with a non-unique GID.[m
+[m
+       [1m-p[0m, [1m--password[0m [4mPASSWORD[24m[m
+           The encrypted password, as returned by [1mcrypt[0m(3). The default is to disable the password.[m
+[m
+           [1mNote:[0m This option is not recommended because the password (or encrypted password) will be visible by users listing[m
+           the processes.[m
+[m
+           You should make sure the password respects the system's password policy.[m
+[m
+       [1m-r[0m, [1m--system[0m[m
+           Create a system group.[m
+[m
+           The numeric identifiers of new system groups are chosen in the [1mSYS_GID_MIN[0m-[1mSYS_GID_MAX[0m range, defined in login.defs,[m
+           instead of [1mGID_MIN[0m-[1mGID_MAX[0m.[m
+[m
+       [1m-R[0m, [1m--root[0m [4mCHROOT_DIR[24m[m
+           Apply changes in the [4mCHROOT_DIR[24m directory and use the configuration files from the [4mCHROOT_DIR[24m directory.[m
+[m
+       [1m-P[0m, [1m--prefix[0m [4mPREFIX_DIR[24m[m
+           Apply changes in the [4mPREFIX_DIR[24m directory and use the configuration files from the [4mPREFIX_DIR[24m directory. This option[m
+           does not chroot and is intended for preparing a cross-compilation target. Some limitations: NIS and LDAP users/groups[m
+           are not verified. PAM authentication is using the host files. No SELINUX support.[m
+[m
+[1mCONFIGURATION[0m[m
+       The following configuration variables in /etc/login.defs change the behavior of this tool:[m
+[m
+       [1mGID_MAX[0m (number), [1mGID_MIN[0m (number)[m
+           Range of group IDs used for the creation of regular groups by [1museradd[0m, [1mgroupadd[0m, or [1mnewusers[0m.[m
+[m
+           The default value for [1mGID_MIN[0m (resp.  [1mGID_MAX[0m) is 1000 (resp. 60000).[m
+[7m Manual page groupadd(8) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ groupadd read_sec_files
+[?2004lgroupadd: Permission denied.
+groupadd: cannot lock /etc/group; try again later.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ groupadd read_sec_files[1@s[1@u[1@o[1@d[1P[1P[1@d[1@o[1@ 
+[?2004l[sudo] password for jdizzle: 
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ g[Ksudo groupadd write_sec_files
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man adduser
+[?2004l[?1049h[22;0;0t[?1h=ADDUSER(8)                                           System Manager's Manual                                          ADDUSER(8)[m
+[m
+[1mNAME[0m[m
+       adduser, addgroup - add a user or group to the system[m
+[m
+[1mSYNOPSIS[0m[m
+       [1madduser[0m  [options]  [--home  DIR] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--ingroup[m
+       GROUP | --gid ID] [--disabled-password] [--disabled-login] [--gecos GECOS] [--add_extra_groups] [--encrypt-home] user[m
+[m
+       [1madduser[0m --system [options] [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID] [--group | --ingroup GROUP |  --gid[m
+       ID] [--disabled-password] [--disabled-login] [--gecos GECOS] user[m
+[m
+       [1maddgroup[0m [options] [--gid ID] group[m
+[m
+       [1maddgroup[0m --system [options] [--gid ID] group[m
+[m
+       [1madduser[0m [options] user group[m
+[m
+   [1mCOMMON[0m [1mOPTIONS[0m[m
+       [--quiet] [--debug] [--force-badname] [--help|-h] [--version] [--conf FILE][m
+[m
+[1mDESCRIPTION[0m[m
+       [1madduser[0m  and  [1maddgroup[0m add users and groups to the system according to command line options and configuration information[m
+       in [4m/etc/adduser.conf[24m.  They are friendlier front ends to the low level tools like [1museradd,[0m [1mgroupadd[0m and [1musermod[0m programs,[m
+       by  default  choosing Debian policy conformant UID and GID values, creating a home directory with skeletal configuration,[m
+       running a custom script, and other features.  [1madduser[0m and [1maddgroup[0m can be run in one of five modes:[m
+[m
+   [1mAdd[0m [1ma[0m [1mnormal[0m [1muser[0m[m
+       If called with one non-option argument and without the [1m--system[0m or [1m--group[0m options, [1madduser[0m will add a normal user.[m
+[m
+       [1madduser[0m will choose the first available UID from the range specified for normal users in the configuration file.  The UID[m
+       can be overridden with the [1m--uid[0m option.[m
+[m
+       The range specified in the configuration file may be overridden with the [1m--firstuid[0m and [1m--lastuid[0m options.[m
+[m
+       By  default,  each  user  in  Debian GNU/Linux is given a corresponding group with the same name.  Usergroups allow group[m
+       writable directories to be easily maintained by placing the appropriate users in the new group, setting the  set-group-ID[m
+       bit in the directory, and ensuring that all users use a umask of 002.  If this option is turned off by setting [1mUSERGROUPS[0m[m
+       to [4mno[24m, all users' GIDs are set to [1mUSERS_GID[0m.  Users' primary groups can also be overridden from the command line with the[m
+       [1m--gid[0m  or [1m--ingroup[0m options to set the group by id or name, respectively.  Also, users can be added to one or more groups[m
+       defined in adduser.conf either by setting ADD_EXTRA_GROUPS to 1 in adduser.conf, or by passing [1m--add_extra_groups[0m on  the[m
+       commandline.[m
+[m
+       [1madduser[0m will create a home directory subject to [1mDHOME[0m, [1mGROUPHOMES[0m, and [1mLETTERHOMES[0m.  The home directory can be overridden[m
+       from the command line with the [1m--home[0m option, and the shell with the [1m--shell[0m option. The  home  directory's  set-group-ID[m
+       bit is set if [1mUSERGROUPS[0m is [4myes[24m so that any files created in the user's home directory will have the correct group.[m
+[m
+       [1madduser[0m  will copy files from [1mSKEL[0m into the home directory and prompt for finger (gecos) information and a password.  The[m
+       gecos may also be set with the [1m--gecos[0m option.  With the [1m--disabled-login[0m option, the account will be created but will be[m
+       disabled  until  a  password  is set. The [1m--disabled-password[0m option will not set a password, but login is still possible[m
+       (for example with SSH RSA keys).  To set up an encrypted home directory for the new user, add the [1m--encrypt-home[0m  option.[m
+       For more information, refer to the -b option of [1mecryptfs-setup-private(1).[0m[m
+[m
+       If  the file [1m/usr/local/sbin/adduser.local[0m exists, it will be executed after the user account has been set up in order to[m
+       do any local setup.  The arguments passed to [1madduser.local[0m are:[m
+       username uid gid home-directory[m
+       The environment variable VERBOSE is set according to the following rule:[m
+[m
+       0 if   [1m--quiet[0m is specified[m
+[m
+       1 if neither[m
+              [1m--quiet[0m nor [1m--debug[0m is specified[m
+[m
+       2 if   [1m--debug[0m is specified[m
+[m
+              (The same applies to the variable DEBUG, but DEBUG is deprecated and will be removed in a  later  version  of  [1mad‐[0m[m
+              [1mduser[0m.)[m
+[m
+[7m Manual page adduser(8) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ adduser assignm[K[K[K[K[K[K[Kcs-491[K2-assignment1-[K[K2[K-2-user-1
+[?2004ladduser: Only root may add a user or group to the system.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ adduser cs-492-assignment-2-user-1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[1@u[1@d[1@o[1@ 
+[?2004lAdding user `cs-492-assignment-2-user-1' ...
+Adding new group `cs-492-assignment-2-user-1' (1003) ...
+Adding new user `cs-492-assignment-2-user-1' (1001) with group `cs-492-assignment-2-user-1' ...
+Creating home directory `/home/cs-492-assignment-2-user-1' ...
+Copying files from `/etc/skel' ...
+New password: 
+BAD PASSWORD: No password supplied
+Retype new password: 
+Password change has been aborted.
+passwd: Authentication token manipulation error
+passwd: password unchanged
+Try again? [y/N] n
+Changing the user information for cs-492-assignment-2-user-1
+Enter the new value, or press ENTER for the default
+	Full Name []: 	Room Number []: 	Work Phone []: 	Home Phone []: 	Other []: Is the information correct? [Y/n] n y
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo remuser
+[?2004lsudo: remuser: command not found
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo remuser[K[K[K[K[K[K[Kdeluser !!:3[C !!:3- !!:3- !!:3r !!:3e !!:3m !!:3o !!:3v !!:3e !!:3- !!:3h !!:3o !!:3m !!:3e !!:3
+[?2004lbash: :3: bad word specifier
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo deluser-[K --remove-home cs-492-assignment-2-user-2[K1
+[?2004lLooking for files to backup/remove ...
+Removing files ...
+Removing user `cs-492-assignment-2-user-1' ...
+Warning: group `cs-492-assignment-2-user-1' has no more members.
+Done.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo delgroup cs-492-assignment-2-user-1
+[?2004lThe group `cs-492-assignment-2-user-1' does not exist.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo add[K[K[K[K[K[K[K[Ksudo delgroup cs-492-assignment-2-user-1[13@user --remove-home[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cremuser[Kadduser cs-492-assignment-2-user-1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cman adduser[K
+[?2004l[?1049h[22;0;0t[?1h=ADDUSER(8)                                           System Manager's Manual                                          ADDUSER(8)[m
+[m
+[1mNAME[0m[m
+       adduser, addgroup - add a user or group to the system[m
+[m
+[1mSYNOPSIS[0m[m
+       [1madduser[0m  [options]  [--home  DIR] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--ingroup[m
+       GROUP | --gid ID] [--disabled-password] [--disabled-login] [--gecos GECOS] [--add_extra_groups] [--encrypt-home] user[m
+[m
+       [1madduser[0m --system [options] [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID] [--group | --ingroup GROUP |  --gid[m
+       ID] [--disabled-password] [--disabled-login] [--gecos GECOS] user[m
+[m
+       [1maddgroup[0m [options] [--gid ID] group[m
+[m
+       [1maddgroup[0m --system [options] [--gid ID] group[m
+[m
+       [1madduser[0m [options] user group[m
+[m
+   [1mCOMMON[0m [1mOPTIONS[0m[m
+       [--quiet] [--debug] [--force-badname] [--help|-h] [--version] [--conf FILE][m
+[m
+[1mDESCRIPTION[0m[m
+       [1madduser[0m  and  [1maddgroup[0m add users and groups to the system according to command line options and configuration information[m
+       in [4m/etc/adduser.conf[24m.  They are friendlier front ends to the low level tools like [1museradd,[0m [1mgroupadd[0m and [1musermod[0m programs,[m
+       by  default  choosing Debian policy conformant UID and GID values, creating a home directory with skeletal configuration,[m
+       running a custom script, and other features.  [1madduser[0m and [1maddgroup[0m can be run in one of five modes:[m
+[m
+   [1mAdd[0m [1ma[0m [1mnormal[0m [1muser[0m[m
+       If called with one non-option argument and without the [1m--system[0m or [1m--group[0m options, [1madduser[0m will add a normal user.[m
+[m
+       [1madduser[0m will choose the first available UID from the range specified for normal users in the configuration file.  The UID[m
+       can be overridden with the [1m--uid[0m option.[m
+[m
+       The range specified in the configuration file may be overridden with the [1m--firstuid[0m and [1m--lastuid[0m options.[m
+[m
+       By  default,  each  user  in  Debian GNU/Linux is given a corresponding group with the same name.  Usergroups allow group[m
+       writable directories to be easily maintained by placing the appropriate users in the new group, setting the  set-group-ID[m
+       bit in the directory, and ensuring that all users use a umask of 002.  If this option is turned off by setting [1mUSERGROUPS[0m[m
+       to [4mno[24m, all users' GIDs are set to [1mUSERS_GID[0m.  Users' primary groups can also be overridden from the command line with the[m
+       [1m--gid[0m  or [1m--ingroup[0m options to set the group by id or name, respectively.  Also, users can be added to one or more groups[m
+       defined in adduser.conf either by setting ADD_EXTRA_GROUPS to 1 in adduser.conf, or by passing [1m--add_extra_groups[0m on  the[m
+       commandline.[m
+[m
+       [1madduser[0m will create a home directory subject to [1mDHOME[0m, [1mGROUPHOMES[0m, and [1mLETTERHOMES[0m.  The home directory can be overridden[m
+       from the command line with the [1m--home[0m option, and the shell with the [1m--shell[0m option. The  home  directory's  set-group-ID[m
+       bit is set if [1mUSERGROUPS[0m is [4myes[24m so that any files created in the user's home directory will have the correct group.[m
+[m
+       [1madduser[0m  will copy files from [1mSKEL[0m into the home directory and prompt for finger (gecos) information and a password.  The[m
+       gecos may also be set with the [1m--gecos[0m option.  With the [1m--disabled-login[0m option, the account will be created but will be[m
+       disabled  until  a  password  is set. The [1m--disabled-password[0m option will not set a password, but login is still possible[m
+       (for example with SSH RSA keys).  To set up an encrypted home directory for the new user, add the [1m--encrypt-home[0m  option.[m
+       For more information, refer to the -b option of [1mecryptfs-setup-private(1).[0m[m
+[m
+       If  the file [1m/usr/local/sbin/adduser.local[0m exists, it will be executed after the user account has been set up in order to[m
+       do any local setup.  The arguments passed to [1madduser.local[0m are:[m
+       username uid gid home-directory[m
+       The environment variable VERBOSE is set according to the following rule:[m
+[m
+       0 if   [1m--quiet[0m is specified[m
+[m
+       1 if neither[m
+              [1m--quiet[0m nor [1m--debug[0m is specified[m
+[m
+       2 if   [1m--debug[0m is specified[m
+[m
+              (The same applies to the variable DEBUG, but DEBUG is deprecated and will be removed in a  later  version  of  [1mad‐[0m[m
+              [1mduser[0m.)[m
+[m
+[7m Manual page adduser(8) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo adduser --no-create-home --disabled =[K[K-password cs-497-assignmm[Kent2-[K[K-2-user-1
+[?2004lAdding user `cs-497-assignment-2-user-1' ...
+Adding new group `cs-497-assignment-2-user-1' (1003) ...
+Adding new user `cs-497-assignment-2-user-1' (1001) with group `cs-497-assignment-2-user-1' ...
+Not creating home directory `/home/cs-497-assignment-2-user-1'.
+Changing the user information for cs-497-assignment-2-user-1
+Enter the new value, or press ENTER for the default
+	Full Name []: Ri  Ricky =  
+	Room Number []: Bo  
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo adduser --no-create-home --disabled-password cs-497-assignment-2-user-1[K2
+[?2004lAdding user `cs-497-assignment-2-user-2' ...
+Adding new group `cs-497-assignment-2-user-2' (1004) ...
+Adding new user `cs-497-assignment-2-user-2' (1002) with group `cs-497-assignment-2-user-2' ...
+Not creating home directory `/home/cs-497-assignment-2-user-2'.
+Changing the user information for cs-497-assignment-2-user-2
+Enter the new value, or press ENTER for the default
+	Full Name []: Bobby
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo usermod -G[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kman usermod
+[?2004l[?1049h[22;0;0t[?1h=USERMOD(8)                                         System Management Commands                                         USERMOD(8)[m
+[m
+[1mNAME[0m[m
+       usermod - modify a user account[m
+[m
+[1mSYNOPSIS[0m[m
+       [1musermod[0m [[4moptions[24m] [4mLOGIN[24m[m
+[m
+[1mDESCRIPTION[0m[m
+       The [1musermod[0m command modifies the system account files to reflect the changes that are specified on the command line.[m
+[m
+[1mOPTIONS[0m[m
+       The options which apply to the [1musermod[0m command are:[m
+[m
+       [1m-a[0m, [1m--append[0m[m
+           Add the user to the supplementary group(s). Use only with the [1m-G[0m option.[m
+[m
+       [1m-b[0m, [1m--badnames[0m[m
+           Allow names that do not conform to standards.[m
+[m
+       [1m-c[0m, [1m--comment[0m [4mCOMMENT[24m[m
+           The new value of the user's password file comment field. It is normally modified using the [1mchfn[0m(1) utility.[m
+[m
+       [1m-d[0m, [1m--home[0m [4mHOME_DIR[24m[m
+           The user's new login directory.[m
+[m
+           If the [1m-m[0m option is given, the contents of the current home directory will be moved to the new home directory, which[m
+           is created if it does not already exist.[m
+[m
+       [1m-e[0m, [1m--expiredate[0m [4mEXPIRE_DATE[24m[m
+           The date on which the user account will be disabled. The date is specified in the format [4mYYYY-MM-DD[24m.[m
+[m
+           An empty [4mEXPIRE_DATE[24m argument will disable the expiration of the account.[m
+[m
+           This option requires a /etc/shadow file. A /etc/shadow entry will be created if there were none.[m
+[m
+       [1m-f[0m, [1m--inactive[0m [4mINACTIVE[24m[m
+           The number of days after a password expires until the account is permanently disabled.[m
+[m
+           A value of 0 disables the account as soon as the password has expired, and a value of -1 disables the feature.[m
+[m
+           This option requires a /etc/shadow file. A /etc/shadow entry will be created if there were none.[m
+[m
+       [1m-g[0m, [1m--gid[0m [4mGROUP[24m[m
+           The group name or number of the user's new initial login group. The group must exist.[m
+[m
+           Any file from the user's home directory owned by the previous primary group of the user will be owned by this new[m
+           group.[m
+[m
+           The group ownership of files outside of the user's home directory must be fixed manually.[m
+[m
+       [1m-G[0m, [1m--groups[0m [4mGROUP1[24m[[4m,GROUP2,...[24m[[4m,GROUPN[24m]]][m
+           A list of supplementary groups which the user is also a member of. Each group is separated from the next by a comma,[m
+           with no intervening whitespace. The groups are subject to the same restrictions as the group given with the [1m-g[0m[m
+           option.[m
+[m
+           If the user is currently a member of a group which is not listed, the user will be removed from the group. This[m
+           behaviour can be changed via the [1m-a[0m option, which appends the user to the current supplementary group list.[m
+[m
+       [1m-l[0m, [1m--login[0m [4mNEW_LOGIN[24m[m
+           The name of the user will be changed from [4mLOGIN[24m to [4mNEW_LOGIN[24m. Nothing else is changed. In particular, the user's home[m
+           directory or mail spool should probably be renamed manually to reflect the new login name.[m
+[m
+       [1m-L[0m, [1m--lock[0m[m
+           Lock a user's password. This puts a '!' in front of the encrypted password, effectively disabling the password. You[m
+           can't use this option with [1m-p[0m or [1m-U[0m.[m
+[m
+           Note: if you wish to lock the account (not only access with a password), you should also set the [4mEXPIRE_DATE[24m to [4m1[24m.[m
+[7m Manual page usermod(8) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo usermod -G read_sec_files cs-497-assignment-2-user-1
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ sudo usermod -G re[K[Kwrite_sec_files cs-497-assignment-2-user-2
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ mkdir /var/tmp/CS497^C[?2004l[?2004h[?2004l
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man facl[K[K[K[Ksetfacl
+[?2004l[?1049h[22;0;0t[?1h=SETFACL(1)                                            Access Control Lists                                            SETFACL(1)[m
+[m
+[1mNAME[0m[m
+       setfacl - set file access control lists[m
+[m
+[1mSYNOPSIS[0m[m
+       [1msetfacl[0m [-bkndRLPvh] [{-m|-x} acl_spec] [{-M|-X} acl_file] file ...[m
+[m
+       [1msetfacl[0m --restore={file|-}[m
+[m
+[1mDESCRIPTION[0m[m
+       This  utility  sets Access Control Lists (ACLs) of files and directories.  On the command line, a sequence of commands is[m
+       followed by a sequence of files (which in turn can be followed by another sequence of commands, ...).[m
+[m
+       The [4m-m[24m and [4m-x[24m options expect an ACL on the command line. Multiple ACL entries are separated by  comma  characters  (`,').[m
+       The  [4m-M[24m  and  [4m-X[24m options read an ACL from a file or from standard input. The ACL entry format is described in Section ACL[m
+       ENTRIES.[m
+[m
+       The [4m--set[24m and [4m--set-file[24m options set the ACL of a file or a directory. The previous ACL is  replaced.   ACL  entries  for[m
+       this operation must include permissions.[m
+[m
+       The  [4m-m[24m  [4m(--modify)[24m and [4m-M[24m [4m(--modify-file)[24m options modify the ACL of a file or directory.  ACL entries for this operation[m
+       must include permissions.[m
+[m
+       The [4m-x[24m [4m(--remove)[24m and [4m-X[24m [4m(--remove-file)[24m options remove ACL entries. It is not an error to remove an entry which does not[m
+       exist.  Only ACL entries without the [4mperms[24m field are accepted as parameters, unless POSIXLY_CORRECT is defined.[m
+[m
+       When  reading  from files using the [4m-M[24m and [4m-X[24m options, setfacl accepts the output getfacl produces.  There is at most one[m
+       ACL entry per line. After a Pound sign (`#'), everything up to the end of the line is treated as a comment.[m
+[m
+       If setfacl is used on a file system which does not support ACLs, setfacl operates on the file mode  permission  bits.  If[m
+       the ACL does not fit completely in the permission bits, setfacl modifies the file mode permission bits to reflect the ACL[m
+       as closely as possible, writes an error message to standard error, and returns with an exit status greater than 0.[m
+[m
+   [1mPERMISSIONS[0m[m
+       The file owner and processes capable of CAP_FOWNER are granted the right to modify ACLs of a file. This is  analogous  to[m
+       the  permissions  required  for  accessing  the  file  mode.  (On  current  Linux systems, root is the only user with the[m
+       CAP_FOWNER capability.)[m
+[m
+[1mOPTIONS[0m[m
+       [4m-b,[24m [4m--remove-all[24m[m
+           Remove all extended ACL entries. The base ACL entries of the owner, group and others are retained.[m
+[m
+       [4m-k,[24m [4m--remove-default[24m[m
+           Remove the Default ACL. If no Default ACL exists, no warnings are issued.[m
+[m
+       [4m-n,[24m [4m--no-mask[24m[m
+           Do not recalculate the effective rights mask. The default behavior of setfacl is to recalculate the ACL  mask  entry,[m
+           unless a mask entry was explicitly given.  The mask entry is set to the union of all permissions of the owning group,[m
+           and all named user and group entries. (These are exactly the entries affected by the mask entry).[m
+[m
+       [4m--mask[24m[m
+           Do recalculate the effective rights mask, even if an ACL mask entry was explicitly given. (See the [4m-n[24m option.)[m
+[m
+       [4m-d,[24m [4m--default[24m[m
+           All operations apply to the Default ACL. Regular ACL entries in the input set are promoted to  Default  ACL  entries.[m
+           Default ACL entries in the input set are discarded. (A warning is issued if that happens).[m
+[m
+       [4m--restore={file|-}[24m[m
+           Restore  a  permission backup created by `getfacl -R' or similar. All permissions of a complete directory subtree are[m
+           restored using this mechanism. If the input contains owner comments or group comments, setfacl  attempts  to  restore[m
+           the  owner and owning group. If the input contains flags comments (which define the setuid, setgid, and sticky bits),[m
+           setfacl sets those three bits accordingly; otherwise, it clears them. This option cannot be mixed with other  options[m
+           except `--test'.  If the file specified is '[1m-[0m', then it will be read from standard input.[m
+[m
+       [4m--test[24m[m
+           Test mode. Instead of changing the ACLs of any files, the resulting ACLs are listed.[m
+[m
+[7m Manual page setfacl(1) line 1 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-R,[24m [4m--recursive[24m[m
+[7m Manual page setfacl(1) line 2 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Apply operations to all files and directories recursively. This option cannot be mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 3 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 4 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-L,[24m [4m--logical[24m[m
+[7m Manual page setfacl(1) line 5 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Logical  walk,  follow  symbolic links to directories. The default behavior is to follow symbolic link arguments, and[m
+[7m Manual page setfacl(1) line 6 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           skip symbolic links encountered in subdirectories.  Only effective in combination with -R.   This  option  cannot  be[m
+[7m Manual page setfacl(1) line 7 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 8 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-P,[24m [4m--physical[24m[m
+[7m Manual page setfacl(1) line 10 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Physical walk, do not follow symbolic links to directories.  This also skips symbolic link arguments.  Only effective[m
+[7m Manual page setfacl(1) line 11 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           in combination with -R.  This option cannot be mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 12 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 13 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-v,[24m [4m--version[24m[m
+[7m Manual page setfacl(1) line 14 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print the version of setfacl and exit.[m
+[7m Manual page setfacl(1) line 15 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 16 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-h,[24m [4m--help[24m[m
+[7m Manual page setfacl(1) line 17 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print help explaining the command line options.[m
+[7m Manual page setfacl(1) line 18 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 19 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m--[24m  End of command line options. All remaining parameters are interpreted as file names, even if they start with a dash.[m
+[7m Manual page setfacl(1) line 20 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 21 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-[24m   If the file name parameter is a single dash, setfacl reads a list of files from standard input.[m
+[7m Manual page setfacl(1) line 22 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 23 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K   [1mACL[0m [1mENTRIES[0m[m
+[7m Manual page setfacl(1) line 24 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       The setfacl utility recognizes the following ACL entry formats (blanks inserted for clarity):[m
+[7m Manual page setfacl(1) line 25 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 26 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [d[efault]:] [u[ser]:][4muid[24m [:[4mperms[24m][m
+[7m Manual page setfacl(1) line 27 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              Permissions of a named user. Permissions of the file owner if [4muid[24m is empty.[m
+[7m Manual page setfacl(1) line 28 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 29 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ set [Kfact[Kl --test /var/te[Kmp/systemd-private-8f2ccfee08ae4550a4a62f6de0fcd7b4-[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K/CS498[K7
+[?2004lUsage: setfacl [-bkndRLP] { -m|-M|-x|-X ... } file ...
+Try `setfacl --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ setfacl --test /var/tmp/CS497[18Pman setfaclsudo usermod -G write_sec_files cs-497-assignment-2-user-2[1Pread_sec_files cs-497-assignment-2-user-1write_sec_files cs-497-assignment-2-user-2[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cman setfacl[Ksetfacl --test /var/tmp/CS497[Kmkdir /var/tmp/CS497
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ mkdir /var/tmp/CS497[9@setfacl --test[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004lUsage: setfacl [-bkndRLP] { -m|-M|-x|-X ... } file ...
+Try `setfacl --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ setfacl --test /var/tmp/CS497[9Pmkdir[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9@setfacl --test[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Pman setfacl
+[?2004l[?1049h[22;0;0t[?1h=SETFACL(1)                                            Access Control Lists                                            SETFACL(1)[m
+[m
+[1mNAME[0m[m
+       setfacl - set file access control lists[m
+[m
+[1mSYNOPSIS[0m[m
+       [1msetfacl[0m [-bkndRLPvh] [{-m|-x} acl_spec] [{-M|-X} acl_file] file ...[m
+[m
+       [1msetfacl[0m --restore={file|-}[m
+[m
+[1mDESCRIPTION[0m[m
+       This  utility  sets Access Control Lists (ACLs) of files and directories.  On the command line, a sequence of commands is[m
+       followed by a sequence of files (which in turn can be followed by another sequence of commands, ...).[m
+[m
+       The [4m-m[24m and [4m-x[24m options expect an ACL on the command line. Multiple ACL entries are separated by  comma  characters  (`,').[m
+       The  [4m-M[24m  and  [4m-X[24m options read an ACL from a file or from standard input. The ACL entry format is described in Section ACL[m
+       ENTRIES.[m
+[m
+       The [4m--set[24m and [4m--set-file[24m options set the ACL of a file or a directory. The previous ACL is  replaced.   ACL  entries  for[m
+       this operation must include permissions.[m
+[m
+       The  [4m-m[24m  [4m(--modify)[24m and [4m-M[24m [4m(--modify-file)[24m options modify the ACL of a file or directory.  ACL entries for this operation[m
+       must include permissions.[m
+[m
+       The [4m-x[24m [4m(--remove)[24m and [4m-X[24m [4m(--remove-file)[24m options remove ACL entries. It is not an error to remove an entry which does not[m
+       exist.  Only ACL entries without the [4mperms[24m field are accepted as parameters, unless POSIXLY_CORRECT is defined.[m
+[m
+       When  reading  from files using the [4m-M[24m and [4m-X[24m options, setfacl accepts the output getfacl produces.  There is at most one[m
+       ACL entry per line. After a Pound sign (`#'), everything up to the end of the line is treated as a comment.[m
+[m
+       If setfacl is used on a file system which does not support ACLs, setfacl operates on the file mode  permission  bits.  If[m
+       the ACL does not fit completely in the permission bits, setfacl modifies the file mode permission bits to reflect the ACL[m
+       as closely as possible, writes an error message to standard error, and returns with an exit status greater than 0.[m
+[m
+   [1mPERMISSIONS[0m[m
+       The file owner and processes capable of CAP_FOWNER are granted the right to modify ACLs of a file. This is  analogous  to[m
+       the  permissions  required  for  accessing  the  file  mode.  (On  current  Linux systems, root is the only user with the[m
+       CAP_FOWNER capability.)[m
+[m
+[1mOPTIONS[0m[m
+       [4m-b,[24m [4m--remove-all[24m[m
+           Remove all extended ACL entries. The base ACL entries of the owner, group and others are retained.[m
+[m
+       [4m-k,[24m [4m--remove-default[24m[m
+           Remove the Default ACL. If no Default ACL exists, no warnings are issued.[m
+[m
+       [4m-n,[24m [4m--no-mask[24m[m
+           Do not recalculate the effective rights mask. The default behavior of setfacl is to recalculate the ACL  mask  entry,[m
+           unless a mask entry was explicitly given.  The mask entry is set to the union of all permissions of the owning group,[m
+           and all named user and group entries. (These are exactly the entries affected by the mask entry).[m
+[m
+       [4m--mask[24m[m
+           Do recalculate the effective rights mask, even if an ACL mask entry was explicitly given. (See the [4m-n[24m option.)[m
+[m
+       [4m-d,[24m [4m--default[24m[m
+           All operations apply to the Default ACL. Regular ACL entries in the input set are promoted to  Default  ACL  entries.[m
+           Default ACL entries in the input set are discarded. (A warning is issued if that happens).[m
+[m
+       [4m--restore={file|-}[24m[m
+           Restore  a  permission backup created by `getfacl -R' or similar. All permissions of a complete directory subtree are[m
+           restored using this mechanism. If the input contains owner comments or group comments, setfacl  attempts  to  restore[m
+           the  owner and owning group. If the input contains flags comments (which define the setuid, setgid, and sticky bits),[m
+           setfacl sets those three bits accordingly; otherwise, it clears them. This option cannot be mixed with other  options[m
+           except `--test'.  If the file specified is '[1m-[0m', then it will be read from standard input.[m
+[m
+       [4m--test[24m[m
+           Test mode. Instead of changing the ACLs of any files, the resulting ACLs are listed.[m
+[m
+[7m Manual page setfacl(1) line 1 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-R,[24m [4m--recursive[24m[m
+[7m Manual page setfacl(1) line 2 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Apply operations to all files and directories recursively. This option cannot be mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 3 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 4 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-L,[24m [4m--logical[24m[m
+[7m Manual page setfacl(1) line 5 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Logical  walk,  follow  symbolic links to directories. The default behavior is to follow symbolic link arguments, and[m
+[7m Manual page setfacl(1) line 6 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           skip symbolic links encountered in subdirectories.  Only effective in combination with -R.   This  option  cannot  be[m
+[7m Manual page setfacl(1) line 7 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 8 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-P,[24m [4m--physical[24m[m
+[7m Manual page setfacl(1) line 10 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Physical walk, do not follow symbolic links to directories.  This also skips symbolic link arguments.  Only effective[m
+[7m Manual page setfacl(1) line 11 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           in combination with -R.  This option cannot be mixed with `--restore'.[m
+[7m Manual page setfacl(1) line 12 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 13 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-v,[24m [4m--version[24m[m
+[7m Manual page setfacl(1) line 14 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print the version of setfacl and exit.[m
+[7m Manual page setfacl(1) line 15 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 16 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-h,[24m [4m--help[24m[m
+[7m Manual page setfacl(1) line 17 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K           Print help explaining the command line options.[m
+[7m Manual page setfacl(1) line 18 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 19 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m--[24m  End of command line options. All remaining parameters are interpreted as file names, even if they start with a dash.[m
+[7m Manual page setfacl(1) line 20 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page setfacl(1) line 21 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [4m-[24m   If the file name parameter is a single dash, setfacl reads a list of files from standard input.[m
+[7m Manual page setfacl(1) line 22 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[69;1H[K[7m Manual page setfacl(1) line 21 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       this operation must include permissions.[m
+[69;1H[K[7m Manual page setfacl(1) line 20 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The [4m--set[24m and [4m--set-file[24m options set the ACL of a file or a directory. The previous ACL is  replaced.   ACL  entries  for[m
+[69;1H[K[7m Manual page setfacl(1) line 19 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[69;1H[K[7m Manual page setfacl(1) line 18 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       ENTRIES.[m
+[69;1H[K[7m Manual page setfacl(1) line 17 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The  [4m-M[24m  and  [4m-X[24m options read an ACL from a file or from standard input. The ACL entry format is described in Section ACL[m
+[69;1H[K[7m Manual page setfacl(1) line 16 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The [4m-m[24m and [4m-x[24m options expect an ACL on the command line. Multiple ACL entries are separated by  comma  characters  (`,').[m
+[69;1H[K[7m Manual page setfacl(1) line 15 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -ld /var/tmp/CS497/
+[?2004ldrwxrwxr-x 2 jdizzle jdizzle 4096 Sep  7 22:30 [0m[01;34m/var/tmp/CS497/[0m
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ touch /var/tmp/CS497/myFile.txt
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man tee
+[?2004l[?1049h[22;0;0t[?1h=TEE(1)                                                    User Commands                                                   TEE(1)[m
+[m
+[1mNAME[0m[m
+       tee - read from standard input and write to standard output and files[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mtee[0m [[4mOPTION[24m]... [[4mFILE[24m]...[m
+[m
+[1mDESCRIPTION[0m[m
+       Copy standard input to each FILE, and also to standard output.[m
+[m
+       [1m-a[0m, [1m--append[0m[m
+              append to the given FILEs, do not overwrite[m
+[m
+       [1m-i[0m, [1m--ignore-interrupts[0m[m
+              ignore interrupt signals[m
+[m
+       [1m-p[0m     diagnose errors writing to non pipes[m
+[m
+       [1m--output-error[0m[=[4mMODE[24m][m
+              set behavior on write error.  See MODE below[m
+[m
+       [1m--help[0m display this help and exit[m
+[m
+       [1m--version[0m[m
+              output version information and exit[m
+[m
+   [1mMODE[0m [1mdetermines[0m [1mbehavior[0m [1mwith[0m [1mwrite[0m [1merrors[0m [1mon[0m [1mthe[0m [1moutputs:[0m[m
+       'warn' diagnose errors writing to any output[m
+[m
+       'warn-nopipe'[m
+              diagnose errors writing to any output not a pipe[m
+[m
+       'exit' exit on error writing to any output[m
+[m
+       'exit-nopipe'[m
+              exit on error writing to any output not a pipe[m
+[m
+       The  default  MODE for the [1m-p[0m option is 'warn-nopipe'.  The default operation when [1m--output-error[0m is not specified, is to[m
+       exit immediately on error writing to a pipe, and diagnose errors writing to non pipe outputs.[m
+[m
+[1mAUTHOR[0m[m
+       Written by Mike Parker, Richard M. Stallman, and David MacKenzie.[m
+[m
+[1mREPORTING[0m [1mBUGS[0m[m
+       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>[m
+       Report any translation bugs to <https://translationproject.org/team/>[m
+[m
+[1mCOPYRIGHT[0m[m
+       Copyright © 2020 Free Software Foundation, Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  <https://gnu.org/li‐[m
+       censes/gpl.html>.[m
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.[m
+[m
+[1mSEE[0m [1mALSO[0m[m
+       Full documentation <https://www.gnu.org/software/coreutils/tee>[m
+       or available locally via: info '(coreutils) tee invocation'[m
+[m
+GNU coreutils 8.32                                        February 2022                                                   TEE(1)[m
+[7m Manual page tee(1) line 1/58 (END) (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man echo
+[?2004l[?1049h[22;0;0t[?1h=ECHO(1)                                                   User Commands                                                  ECHO(1)[m
+[m
+[1mNAME[0m[m
+       echo - display a line of text[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mecho[0m [[4mSHORT-OPTION[24m]... [[4mSTRING[24m]...[m
+       [1mecho[0m [4mLONG-OPTION[24m[m
+[m
+[1mDESCRIPTION[0m[m
+       Echo the STRING(s) to standard output.[m
+[m
+       [1m-n[0m     do not output the trailing newline[m
+[m
+       [1m-e[0m     enable interpretation of backslash escapes[m
+[m
+       [1m-E[0m     disable interpretation of backslash escapes (default)[m
+[m
+       [1m--help[0m display this help and exit[m
+[m
+       [1m--version[0m[m
+              output version information and exit[m
+[m
+       If [1m-e[0m is in effect, the following sequences are recognized:[m
+[m
+       \\     backslash[m
+[m
+       \a     alert (BEL)[m
+[m
+       \b     backspace[m
+[m
+       \c     produce no further output[m
+[m
+       \e     escape[m
+[m
+       \f     form feed[m
+[m
+       \n     new line[m
+[m
+       \r     carriage return[m
+[m
+       \t     horizontal tab[m
+[m
+       \v     vertical tab[m
+[m
+       \0NNN  byte with octal value NNN (1 to 3 digits)[m
+[m
+       \xHH   byte with hexadecimal value HH (1 to 2 digits)[m
+[m
+       NOTE:  your shell may have its own version of echo, which usually supersedes the version described here.  Please refer to[m
+       your shell's documentation for details about the options it supports.[m
+[m
+[1mAUTHOR[0m[m
+       Written by Brian Fox and Chet Ramey.[m
+[m
+[1mREPORTING[0m [1mBUGS[0m[m
+       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>[m
+       Report any translation bugs to <https://translationproject.org/team/>[m
+[m
+[1mCOPYRIGHT[0m[m
+       Copyright © 2020 Free Software Foundation, Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  <https://gnu.org/li‐[m
+       censes/gpl.html>.[m
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.[m
+[m
+[1mSEE[0m [1mALSO[0m[m
+       Full documentation <https://www.gnu.org/software/coreutils/echo>[m
+       or available locally via: info '(coreutils) echo invocation'[m
+[m
+[7m Manual page echo(1) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo "$(date)" "uname -a"
+[?2004lThu Sep  7 10:32:37 PM PDT 2023 uname -a
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo "$(date)" "uname -a")"[1@(
+[?2004lThu Sep  7 10:32:43 PM PDT 2023 (uname -a)
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo "$(date)" "(uname -a)"[C[C[C[1@$
+[?2004lThu Sep  7 10:32:51 PM PDT 2023 Linux jdizzle-vbuntu 6.2.0-32-generic #32~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 18 10:40:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo "$(date)" "$(uname -a)"[C[1@ [1@\[1@n
+[?2004lThu Sep  7 10:32:57 PM PDT 2023 n Linux jdizzle-vbuntu 6.2.0-32-generic #32~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 18 10:40:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo "$(date)" \n "$(uname -a)"[3P[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[2Puname -a"man echo[K
+[?2004l[?1049h[22;0;0t[?1h=ECHO(1)                                                   User Commands                                                  ECHO(1)[m
+[m
+[1mNAME[0m[m
+       echo - display a line of text[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mecho[0m [[4mSHORT-OPTION[24m]... [[4mSTRING[24m]...[m
+       [1mecho[0m [4mLONG-OPTION[24m[m
+[m
+[1mDESCRIPTION[0m[m
+       Echo the STRING(s) to standard output.[m
+[m
+       [1m-n[0m     do not output the trailing newline[m
+[m
+       [1m-e[0m     enable interpretation of backslash escapes[m
+[m
+       [1m-E[0m     disable interpretation of backslash escapes (default)[m
+[m
+       [1m--help[0m display this help and exit[m
+[m
+       [1m--version[0m[m
+              output version information and exit[m
+[m
+       If [1m-e[0m is in effect, the following sequences are recognized:[m
+[m
+       \\     backslash[m
+[m
+       \a     alert (BEL)[m
+[m
+       \b     backspace[m
+[m
+       \c     produce no further output[m
+[m
+       \e     escape[m
+[m
+       \f     form feed[m
+[m
+       \n     new line[m
+[m
+       \r     carriage return[m
+[m
+       \t     horizontal tab[m
+[m
+       \v     vertical tab[m
+[m
+       \0NNN  byte with octal value NNN (1 to 3 digits)[m
+[m
+       \xHH   byte with hexadecimal value HH (1 to 2 digits)[m
+[m
+       NOTE:  your shell may have its own version of echo, which usually supersedes the version described here.  Please refer to[m
+       your shell's documentation for details about the options it supports.[m
+[m
+[1mAUTHOR[0m[m
+       Written by Brian Fox and Chet Ramey.[m
+[m
+[1mREPORTING[0m [1mBUGS[0m[m
+       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>[m
+       Report any translation bugs to <https://translationproject.org/team/>[m
+[m
+[1mCOPYRIGHT[0m[m
+       Copyright © 2020 Free Software Foundation, Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  <https://gnu.org/li‐[m
+       censes/gpl.html>.[m
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.[m
+[m
+[1mSEE[0m [1mALSO[0m[m
+       Full documentation <https://www.gnu.org/software/coreutils/echo>[m
+       or available locally via: info '(coreutils) echo invocation'[m
+[m
+[7m Manual page echo(1) line 1 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[KGNU coreutils 8.32                                        February 2022                                                  ECHO(1)[m
+[7m Manual page echo(1) line 2 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page echo(1) line 2/69 (END) (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man echoecho "$(date)" \n "$(uname -a)"[C[C[C[C[C[1@ [1@-[1@e
+[?2004lThu Sep  7 10:33:12 PM PDT 2023 n Linux jdizzle-vbuntu 6.2.0-32-generic #32~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 18 10:40:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo -e "$(date)" \n "$(uname -a)"[1@'[C[C[1@'
+[?2004lThu Sep  7 10:33:18 PM PDT 2023 
+ Linux jdizzle-vbuntu 6.2.0-32-generic #32~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 18 10:40:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo -e "$(date)" '\n' "$(uname -a)" '\n' :[K"$(whoami) [K" '\n' "$(ip address)"
+[?2004lThu Sep  7 10:35:26 PM PDT 2023 
+ Linux jdizzle-vbuntu 6.2.0-32-generic #32~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 18 10:40:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux 
+ jdizzle 
+ 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:18:5b:41 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 84563sec preferred_lft 84563sec
+    inet6 fe80::9967:8b0b:212d:fb55/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ echo -e "$(date)" '\n' "$(uname -a)" '\n' "$(whoami)" '\n' "$(ip address)" > /var/tmp/CS497/myFile.txt 
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ mv /[K/var/tmp/CS497/myFile.txt >[K~/Desktop/
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ l[Kls -f /~/D[K[K[K[K~/Desktop/
+[?2004l.  ..  myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ mv ~/Desktop/myFile.txt /var/Cs[K[Ktmp/Cs[KS497/
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ mv /var/tmp/CS497/ ~/Desktop/
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -R ~/Desktop/C[K
+[?2004l/home/jdizzle/Desktop/:
+[0m[01;34mCS497[0m
+
+/home/jdizzle/Desktop/CS497:
+myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls ~[K/var/tmp/CS*
+[?2004lls: cannot access '/var/tmp/CS*': No such file or directory
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ chmopd[K[Kd[K[K[K[K[Kman chmod
+[?2004l[?1049h[22;0;0t[?1h=CHMOD(1)                                                  User Commands                                                 CHMOD(1)[m
+[m
+[1mNAME[0m[m
+       chmod - change file mode bits[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mchmod[0m [[4mOPTION[24m]... [4mMODE[24m[[4m,MODE[24m]... [4mFILE[24m...[m
+       [1mchmod[0m [[4mOPTION[24m]... [4mOCTAL-MODE[24m [4mFILE[24m...[m
+       [1mchmod[0m [[4mOPTION[24m]... [4m--reference=RFILE[24m [4mFILE[24m...[m
+[m
+[1mDESCRIPTION[0m[m
+       This  manual  page  documents the GNU version of [1mchmod[0m.  [1mchmod[0m changes the file mode bits of each given file according to[m
+       [4mmode[24m, which can be either a symbolic representation of changes to make, or an octal number representing the  bit  pattern[m
+       for the new mode bits.[m
+[m
+       The  format  of a symbolic mode is [[1mugoa[0m...][[[1m-+=[0m][[4mperms[24m...]...], where [4mperms[24m is either zero or more letters from the set[m
+       [1mrwxXst[0m, or a single letter from the set [1mugo[0m.  Multiple symbolic modes can be given, separated by commas.[m
+[m
+       A combination of the letters [1mugoa[0m controls which users' access to the file will be changed: the user  who  owns  it  ([1mu[0m),[m
+       other  users  in  the  file's group ([1mg[0m), other users not in the file's group ([1mo[0m), or all users ([1ma[0m).  If none of these are[m
+       given, the effect is as if ([1ma[0m) were given, but bits that are set in the umask are not affected.[m
+[m
+       The operator [1m+[0m causes the selected file mode bits to be added to the existing file mode bits of each file; [1m-[0m causes  them[m
+       to  be  removed; and [1m=[0m causes them to be added and causes unmentioned bits to be removed except that a directory's unmen‐[m
+       tioned set user and group ID bits are not affected.[m
+[m
+       The letters [1mrwxXst[0m select file mode bits for the affected users: read ([1mr[0m), write ([1mw[0m), execute (or search for directories)[m
+       ([1mx[0m),  execute/search  only  if  the  file is a directory or already has execute permission for some user ([1mX[0m), set user or[m
+       group ID on execution ([1ms[0m), restricted deletion flag or sticky bit ([1mt[0m).  Instead of one or more of these letters, you  can[m
+       specify  exactly  one  of  the  letters  [1mugo[0m:  the permissions granted to the user who owns the file ([1mu[0m), the permissions[m
+       granted to other users who are members of the file's group ([1mg[0m), and the permissions granted to users that are in  neither[m
+       of the two preceding categories ([1mo[0m).[m
+[m
+       A  numeric  mode  is from one to four octal digits (0-7), derived by adding up the bits with values 4, 2, and 1.  Omitted[m
+       digits are assumed to be leading zeros.  The first digit selects the set user ID (4) and set group ID (2) and  restricted[m
+       deletion  or sticky (1) attributes.  The second digit selects permissions for the user who owns the file: read (4), write[m
+       (2), and execute (1); the third selects permissions for other users in the file's group, with the same  values;  and  the[m
+       fourth for other users not in the file's group, with the same values.[m
+[m
+       [1mchmod[0m  never  changes  the permissions of symbolic links; the [1mchmod[0m system call cannot change their permissions.  This is[m
+       not a problem since the permissions of symbolic links are never used.  However, for each symbolic link listed on the com‐[m
+       mand  line,  [1mchmod[0m changes the permissions of the pointed-to file.  In contrast, [1mchmod[0m ignores symbolic links encountered[m
+       during recursive directory traversals.[m
+[m
+[1mSETUID[0m [1mAND[0m [1mSETGID[0m [1mBITS[0m[m
+       [1mchmod[0m clears the set-group-ID bit of a regular file if the file's group ID does not match the user's effective  group  ID[m
+       or  one  of  the user's supplementary group IDs, unless the user has appropriate privileges.  Additional restrictions may[m
+       cause the set-user-ID and set-group-ID bits of [4mMODE[24m or [4mRFILE[24m to be ignored.  This behavior  depends  on  the  policy  and[m
+       functionality of the underlying [1mchmod[0m system call.  When in doubt, check the underlying system behavior.[m
+[m
+       For  directories  [1mchmod[0m preserves set-user-ID and set-group-ID bits unless you explicitly specify otherwise.  You can set[m
+       or clear the bits with symbolic modes like [1mu+s[0m and [1mg-s[0m.  To clear these bits for directories with a numeric mode requires[m
+       an additional leading zero, or leading = like [1m00755[0m , or [1m=755[0m[m
+[m
+[1mRESTRICTED[0m [1mDELETION[0m [1mFLAG[0m [1mOR[0m [1mSTICKY[0m [1mBIT[0m[m
+       The  restricted deletion flag or sticky bit is a single bit, whose interpretation depends on the file type.  For directo‐[m
+       ries, it prevents unprivileged users from removing or renaming a file in the directory unless they own the  file  or  the[m
+       directory;  this is called the [4mrestricted[24m [4mdeletion[24m [4mflag[24m for the directory, and is commonly found on world-writable direc‐[m
+       tories like [1m/tmp[0m.  For regular files on some older systems, the bit saves the program's text image on the swap device  so[m
+       it will load more quickly when run; this is called the [4msticky[24m [4mbit[24m.[m
+[m
+[1mOPTIONS[0m[m
+       Change the mode of each FILE to MODE.  With [1m--reference[0m, change the mode of each FILE to that of RFILE.[m
+[m
+       [1m-c[0m, [1m--changes[0m[m
+              like verbose but report only when a change is made[m
+[m
+       [1m-f[0m, [1m--silent[0m, [1m--quiet[0m[m
+[7m Manual page chmod(1) line 1 (press h for help or q to quit)[27m[K[K              suppress most error messages[m
+[m
+       [1m-v[0m, [1m--verbose[0m[m
+              output a diagnostic for every file processed[m
+[m
+       [1m--no-preserve-root[0m[m
+              do not treat '/' specially (the default)[m
+[m
+       [1m--preserve-root[0m[m
+              fail to operate recursively on '/'[m
+[m
+       [1m--reference[0m=[4mRFILE[24m[m
+              use RFILE's mode instead of MODE values[m
+[m
+       [1m-R[0m, [1m--recursive[0m[m
+              change files and directories recursively[m
+[m
+       [1m--help[0m display this help and exit[m
+[m
+       [1m--version[0m[m
+              output version information and exit[m
+[m
+       Each MODE is of the form '[ugoa]*([-+=]([rwxXst]*|[ugo]))+|[-+=][0-7]+'.[m
+[m
+[1mAUTHOR[0m[m
+       Written by David MacKenzie and Jim Meyering.[m
+[m
+[1mREPORTING[0m [1mBUGS[0m[m
+       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>[m
+       Report any translation bugs to <https://translationproject.org/team/>[m
+[m
+[1mCOPYRIGHT[0m[m
+       Copyright  ©  2020  Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU GPL version 3 or later <https://gnu.org/li‐[m
+       censes/gpl.html>.[m
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.[m
+[m
+[1mSEE[0m [1mALSO[0m[m
+       chmod(2)[m
+[m
+       Full documentation <https://www.gnu.org/software/coreutils/chmod>[m
+       or available locally via: info '(coreutils) chmod invocation'[m
+[m
+GNU coreutils 8.32                                        February 2022                                                 CHMOD(1)[m
+[7m Manual page chmod(1) line 44/111 (END) (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ chmod -R /[K~/Desktop/[K
+[?2004lchmod: missing operand after ‘/home/jdizzle/Desktop’
+Try 'chmod --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -lR ~/Desktop/CS*
+[?2004l/home/jdizzle/Desktop/CS497:
+total 4
+-rw-rw-r-- 1 jdizzle jdizzle 886 Sep  7 22:35 myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -lR ~/Desktop/CS*[1@d
+[?2004ldrwxrwxr-x 2 jdizzle jdizzle 4096 Sep  7 22:39 [0m[01;34m/home/jdizzle/Desktop/CS497[0m
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -ldR ~/Desktop/CS*[1@f
+[?2004l/home/jdizzle/Desktop/CS497
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -l ~/Desktop/CS497/ ~/Desktop/Cs[KS497/myFile.txt 
+[?2004l-rw-rw-r-- 1 jdizzle jdizzle  886 Sep  7 22:35 /home/jdizzle/Desktop/CS497/myFile.txt
+
+/home/jdizzle/Desktop/CS497/:
+total 4
+-rw-rw-r-- 1 jdizzle jdizzle 886 Sep  7 22:35 myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -l ~/Desktop/CS497/ ~/Desktop/CS497/myFile.txt [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Cd ~/Desktop/CS497/
+[?2004ldrwxrwxr-x 2 jdizzle jdizzle 4096 Sep  7 22:39 [0m[01;34m/home/jdizzle/Desktop/CS497/[0m
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -ld ~/Desktop/CS497/[1P ~/Desktop/CS497/f ~/Desktop/CS497/
+[?2004l.  ..  myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -lf ~/Desktop/CS497/myFile.txt 
+[?2004l/home/jdizzle/Desktop/CS497/myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ ls -lf ~/Desktop/CS497/myFile.txt [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P
+[?2004l-rw-rw-r-- 1 jdizzle jdizzle 886 Sep  7 22:35 /home/jdizzle/Desktop/CS497/myFile.txt
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ chown ~/Desktop[K[K[K[K[K[K[K[K[Kjdizzle ~/Desktop/CS497/
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ setfacl
+[?2004lUsage: setfacl [-bkndRLP] { -m|-M|-x|-X ... } file ...
+Try `setfacl --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ man [Ks[K[K[K[Ksetfacl --help
+[?2004lsetfacl 2.3.1 -- set file access control lists
+Usage: setfacl [-bkndRLP] { -m|-M|-x|-X ... } file ...
+  -m, --modify=acl        modify the current ACL(s) of file(s)
+  -M, --modify-file=file  read ACL entries to modify from file
+  -x, --remove=acl        remove entries from the ACL(s) of file(s)
+  -X, --remove-file=file  read ACL entries to remove from file
+  -b, --remove-all        remove all extended ACL entries
+  -k, --remove-default    remove the default ACL
+      --set=acl           set the ACL of file(s), replacing the current ACL
+      --set-file=file     read ACL entries to set from file
+      --mask              do recalculate the effective rights mask
+  -n, --no-mask           don't recalculate the effective rights mask
+  -d, --default           operations apply to the default ACL
+  -R, --recursive         recurse into subdirectories
+  -L, --logical           logical walk, follow symbolic links
+  -P, --physical          physical walk, do not follow symbolic links
+      --restore=file      restore ACLs (inverse of `getfacl -R')
+      --test              test mode (ACLs are not modified)
+  -v, --version           print version and exit
+  -h, --help              this help text
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497[00m$ setfacl[K[K[K[K[K[K[Kcd ~/Desktop/
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ ls
+[?2004l[0m[01;34mCS497[0m
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl --test CS497/
+[?2004lUsage: setfacl [-bkndRLP] { -m|-M|-x|-X ... } file ...
+Try `setfacl --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl --test CS497/[1PCS497/[1PCS497/[1PCS497/[1PCS497/[1PCS497/[1PCS497/[1PCS497/
+[?2004lUsage: setfacl [-bkndRLP] { -m|-M|-x|-X ... } file ...
+Try `setfacl --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ getfacl CS497/
+[?2004l# file: CS497/
+# owner: jdizzle
+# group: jdizzle
+user::rwx
+group::rwx
+other::r-x
+
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -x CS497/
+[?2004lsetfacl: Option -x: Invalid argument near character 1
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -m g:R g:[C[C[Cread_sec_files:rwx CS497/[C[1P CS497/[1P CS497/x CS497/
+[?2004lsetfacl: Option -m: Invalid argument near character 1
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -mR g:read_sec_files:rx CS497/[C[1P[C[1@ [1@-[1@R
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -R -m g:read_sec_files:rx CS497/[2PmR[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cx CS497/[K[C[21@mR g:read_sec_files:r[C[C[C[C[C[C[C[C[2@R -m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kgetfacl -R CS497/
+[?2004l# file: CS497/
+# owner: jdizzle
+# group: jdizzle
+user::rwx
+group::rwx
+group:read_sec_files:r-x
+mask::rwx
+other::r-x
+
+# file: CS497//myFile.txt
+# owner: jdizzle
+# group: jdizzle
+user::rw-
+group::rw-
+group:read_sec_files:r-x
+mask::rwx
+other::r--
+
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -mR g:write_sec_files:rwx CS497/
+[?2004lsetfacl: Option -m: Invalid argument near character 1
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -mR g:write_sec_files:rwx CS497/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[1@ [1@-[1@R
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -R -m g:write_sec_files:rwx CS497/[2PmR[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pgetfacl -R[C[C[C[C[C[C[C
+[?2004l# file: CS497/
+# owner: jdizzle
+# group: jdizzle
+user::rwx
+group::rwx
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::r-x
+
+# file: CS497//myFile.txt
+# owner: jdizzle
+# group: jdizzle
+user::rw-
+group::rw-
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::r--
+
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su[K[Kchmod 0700 c[KCS497/
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ chmod 0700 CS497/getfacl -R[C[C[C[C[C[C[C
+[?2004l# file: CS497/
+# owner: jdizzle
+# group: jdizzle
+user::rwx
+group::rwx			#effective:---
+group:read_sec_files:r-x	#effective:---
+group:write_sec_files:rwx	#effective:---
+mask::---
+other::---
+
+# file: CS497//myFile.txt
+# owner: jdizzle
+# group: jdizzle
+user::rw-
+group::rw-
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::r--
+
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ getfacl -R CS497/chmod 0700[C[C[C[C[C[C[Cgetfacl -R[C[C[C[C[C[C[C[25@setfacl -R -m g:write_sec_files:rwx[C[C[C[C[C[C[C
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -R -m g:write_sec_files:rwx CS497/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pgetfacl -R[C[C[C[C[C[C[Cchmod 0700[C[C[C[C[C[C[Cgetfacl -R[C[C[C[C[C[C[C[25@setfacl -R -m g:write_sec_files:rwx[C[C[C[C[C[C[C[2PmR[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pgetfacl -R[C[C[C[C[C[C[C[23@setfacl -R -m g:read_sec_files:rx[C[C[C[C[C[C[C
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ setfacl -R -m g:read_sec_files:rx CS497/[2@write_sec_files:rw[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pgetfacl -R[C[C[C[C[C[C[Cchmod 0700[C[C[C[C[C[C[Cgetfacl -R[C[C[C[C[C[C[C
+[?2004l# file: CS497/
+# owner: jdizzle
+# group: jdizzle
+user::rwx
+group::rwx
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::---
+
+# file: CS497//myFile.txt
+# owner: jdizzle
+# group: jdizzle
+user::rw-
+group::rw-
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::r--
+
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ `[Kchmod g=000 CS497/myFile.txt 
+[?2004lchmod: invalid mode: ‘g=000’
+Try 'chmod --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ chmod g=000 CS497/myFile.txt [1P[1P[1P[1P[1P[1@o[1@=[1@0
+[?2004lchmod: invalid mode: ‘o=0’
+Try 'chmod --help' for more information.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ chmod o=0 CS497/myFile.txt [C[1P[1P[1@-[1@x[1P[1@r
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ chmod o-r CS497/myFile.txt =0[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@g=00[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[12Pgetfacl -R CS497/[23@setfacl -R -m g:read_sec_files:rx[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pgetfacl -R[C[C[C[C[C[C[Cchmod g=000 CS497/myFile.txt [12Pgetfacl -R CS497/
+[?2004l# file: CS497/
+# owner: jdizzle
+# group: jdizzle
+user::rwx
+group::rwx
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::---
+
+# file: CS497//myFile.txt
+# owner: jdizzle
+# group: jdizzle
+user::rw-
+group::rw-
+group:read_sec_files:r-x
+group:write_sec_files:rwx
+mask::rwx
+other::---
+
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ getfacl -R CS497/chmod o-r CS497/myFile.txt =0[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@g=00[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[12Pgetfacl -R CS497/[23@setfacl -R -m g:read_sec_files:rx[C[C[C[C[C[C[C[2@write_sec_files:rw[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pgetfacl -R[C[C[C[C[C[C[Cchmod 0700[C[C[C[C[C[C[Cgetfacl -R[C[C[C[C[C[C[C[25@setfacl -R -m g:write_sec_files:rwx[C[C[C[C[C[C[C[2PmR[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pgetfacl -R[C[C[C[C[C[C[C[23@setfacl -R -m g:read_sec_files:rx[C[C[C[C[C[C[C[2PmR[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cx CS497/[K[3Pgetfacl[C[C[C[C[C[C[Cs[C[C[C[C[C[C[C[C[C[C[C[C[C--test CS497/ls[Kcd ~/Desktop/setfacl --help[Kchown jdizzle ~/Desktop/CS497/ls -l ~/Desktop/CS497/myFile.txt [1@f[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kd[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ~/Desktop/CS497/ ~/Desktop/CS497/myFile.txt [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[28PdfR ~/Desktop/CS*[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Pchmod -R ~/Desktop[9Pman chmodls /var/tmp/CS*-R ~/Desktop/[13@mv /var/tmp/CS497/[C[C[C[C[C[C[C[C[C[C[C~/Desktop/myFile.txt /var/tmp/CS497/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pls -f ~/Desktop/[23@mv /var/tmp/CS497/myFile.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho -e "$(date)" '\n' "$(uname -a)" '\n' "$(whoami)" '\n' "$(ip address)" > /var/tmp/CS497/myFile.txt [A]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[2P\n[C[C[C[C[C[C[C[C[C[C[C[C[C[Cman echo[Kecho "$(date)" \n "$(uname -a)"[3P[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[2Puname -a"man echo[K[1Pteetouch /var/tmp/CS497/myFile.txt[9Pls -ld /var/tmp/CS497/[11Pman setfaclsetfacl --test /var/tmp/CS497[9Pmkdir[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[9@setfacl --test[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Pman setfaclsudo usermod -G write_sec_files cs-497-assignment-2-user-2[1Pread_sec_files cs-497-assignment-2-user-1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cman usermod[Ksudo usermod -G read_sec_files cs-497-assignment-2-user-1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cman usermod[Ksudo adduser --no-create-home --disabled-password cs-497-assignment-2-user-21[K3
+[?2004l[sudo] password for jdizzle: 
+Adding user `cs-497-assignment-2-user-3' ...
+Adding new group `cs-497-assignment-2-user-3' (1005) ...
+Adding new user `cs-497-assignment-2-user-3' (1003) with group `cs-497-assignment-2-user-3' ...
+Not creating home directory `/home/cs-497-assignment-2-user-3'.
+Changing the user information for cs-497-assignment-2-user-3
+Enter the new value, or press ENTER for the default
+	Full Name []: James
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su cs-497-assignment-2-user-3
+[?2004lPassword: 
+su: Authentication failure
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su cs-497-assignment-2-user-3
+[?2004lPassword: 
+su: Authentication failure
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su cs-497-assignment-2-user-3
+[?2004lPassword: 
+su: Authentication failure
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su paw[Ksswd cs-497-assignment-2-user-3
+[?2004lsu: user passwd does not exist or the user entry does not contain all the required fields
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ sudo deluser cs-497-assignment-2-user-3
+[?2004lRemoving user `cs-497-assignment-2-user-3' ...
+Warning: group `cs-497-assignment-2-user-3' has no more members.
+Done.
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ sudo deluser cs-497-assignment-2-user-3[3P passwd[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3@do deluser[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3P passwd[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[7Pcs-497-assignment-2-user-3do adduser --no-create-home --disabled-password cs-497-assignment-2-user-3[C[C[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1Pcs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3[1P cs-497-assignment-2-user-3m cs-497-assignment-2-user-3e cs-497-assignment-2-user-3[C cs-497-assignment-2-user-3[1Pcs-497-assignment-2-user-3
+[?2004lAdding user `cs-497-assignment-2-user-3' ...
+Adding new group `cs-497-assignment-2-user-3' (1005) ...
+Adding new user `cs-497-assignment-2-user-3' (1003) with group `cs-497-assignment-2-user-3' ...
+Not creating home directory `/home/cs-497-assignment-2-user-3'.
+New password: 
+BAD PASSWORD: The password is a palindrome
+Retype new password: 
+Sorry, passwords do not match.
+New password: 
+BAD PASSWORD: The password is a palindrome
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for cs-497-assignment-2-user-3
+Enter the new value, or press ENTER for the default
+	Full Name []: James
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] n y
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su cs[K[Kcs-497-assignment-2-user-3
+[?2004lPassword: 
+su: Authentication failure
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ su cs-497-assignment-2-user-3
+[?2004lPassword: 
+[?2004hcs-497-assignment-2-user-3@jdizzle-vbuntu:/home/jdizzle/Desktop$ cd CS497/
+[?2004lbash: cd: CS497/: Permission denied
+[?2004hcs-497-assignment-2-user-3@jdizzle-vbuntu:/home/jdizzle/Desktop$ touch CS497/some s[K[K_stuff
+[?2004ltouch: cannot touch 'CS497/some_stuff': Permission denied
+[?2004hcs-497-assignment-2-user-3@jdizzle-vbuntu:/home/jdizzle/Desktop$ exit
+[?2004lexit
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ wc |[K>> CS497/myFile.txt 
+[?2004l^C
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ wc >> CS497/myFile.txt [C[C[C[1@ [1@C[1@S[4@497/[10@myFile.txt
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ ls -la CS497/ >> CS497/myFile.txt 
+[?2004l[?2004h]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ [K]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ [K]0;jdizzle@jdizzle-vbuntu: ~/Desktop[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/Desktop[00m$ exit
+[?2004lexit
+
+Script done on 2023-09-07 23:56:55-07:00 [COMMAND_EXIT_CODE="0"]
