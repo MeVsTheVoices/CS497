@@ -1,45 +1,33 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-caesar_cipher() {
-    # use passed in arguments
-    # $1 is the text
-    # $2 is the shift
-    # $3 is whether to encrypt or decrypt
-    # $4 is the output file
-    
-    local text="$1"
-    local shift="$2"
-    local mode="$3"
-    local result=""
+encrypt() {
+    local message="$1"
+    local offset="$2"
+    local encrypted=""
 
-    # loop through each character in the text
-    for (( i=0; i<${#text}; i++ )); do
-        char="${text:$i:1}"
-        ascii_val=$(printf '%d' "'$char")
-
-        # check if the character is a letter
-        if [[ $char =~ [a-zA-Z] ]]; then
-            # shift the character by the specified amount
-            if [[ $mode == "encrypt" ]]; then
-                ascii_val=$(( (ascii_val - 65 + shift) % 26 + 65 ))
-            elif [[ $mode == "decrypt" ]]; then
-                ascii_val=$(( (ascii_val - 65 - shift + 26) % 26 + 65 ))
+    for ((i=0; i<${#message}; i++)); do
+        char="${message:$i:1}"
+        if [[ $char =~ [A-Za-z] ]]; then
+            ascii_val=$(printf "%d" "'$char")
+            if [[ $char =~ [A-Z] ]]; then
+                ascii_val=$(((ascii_val - 65 + offset) % 26 + 65))
+            else
+                ascii_val=$(((ascii_val - 97 + offset) % 26 + 97))
             fi
-            char=$(printf '\\$(printf '%03o' $ascii_val)')
+            encrypted+="$(printf "\\$(printf '%03o' "$ascii_val")")"
+        else
+            encrypted+="$char"
         fi
-
-        result="$result$char"
     done
 
-    echo "$result" >> "$4"
+    echo "$encrypted"
 }
 
-rot13() {
-    # use the caesar cipher function to encrypt the text with a shift of 13
-    # $1 is the text
-    # $2 is whether to encrypt or decrypt
-    # $3 is the output file
-    caesar_cipher "$1" 13 "$2" "$3"
-}
+# Read the message and offset from the user
+read -p "Enter the message: " message
+read -p "Enter the offset: " offset
 
+# Encrypt the message using the custom offset
+encrypted_message=$(encrypt "$message" "$offset")
+echo "Encrypted message: $encrypted_message"
 
