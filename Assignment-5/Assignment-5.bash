@@ -7,9 +7,8 @@ encrypt() {
 
 	upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	lower="abcdefghijklmnopqrstuvwxyz"
-	# The logic here goes as follows, start at offset, and go to the end of the string
-	# Then, go from the beginning of the string to offset
-	decrypted=$(echo "$encrypted" | tr "\[${upper:$offset}${upper::$offset}${lower:$offset}${lower::$offset}\]" "[$upper$lower]")
+	# The logic here is simple, we're transpoing by a specific offset
+	decrypted=$(echo "$encrypted" | tr "\[$upper$lower\]" "\[${upper:$offset}${upper::$offset}${lower:$offset}${lower::$offset}\]")
 
 	echo "$decrypted"
 }
@@ -19,25 +18,18 @@ decrypt() {
 	local offset="$2"
 	local decrypted=""
 
-	# Now the FAR simpler solution, we use bash substring expansion
-	# I was tempted to use PERL, this is the kind of thing that it excels with
-	# But, the Bash solution was fairly simple, so, here it is
-	# This was originally written as the encryption method was, but,
-	# Bash was having a hard time doing modulus on a negative number
-	# So, I just did it the easy way
-	# It would be equivalent to use tr for the same purpose
-
 	upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	lower="abcdefghijklmnopqrstuvwxyz"
-	# The logic here goes as follows, start at offset, and go to the end of the string
-	# Then, go from the beginning of the string to offset
-	decrypted=$(echo "$encrypted" | sed "y/${upper:$offset}${upper::$offset}${lower:$offset}${lower::$offset}/$upper$lower/")
+	# All we need to do is swap the ordering of our parameters to work backwords from where we started
+	decrypted=$(echo "$encrypted" | tr "\[${upper:$offset}${upper::$offset}${lower:$offset}${lower::$offset}\]" "\[$upper$lower\]")
 
 	echo "$decrypted"
 }
 
 keep_going_string=""
 while [[ ! $keep_going_string =~ ^[nN]$ ]]; do
+	# There's a simple thing we keep doing here, we'll keep looping until the user enters output
+	# in the format that we're expecting
 	file_or_stdin=""
 	while [[ ! $file_or_stdin =~ ^[fF]$ && ! $file_or_stdin =~ ^[sS]$ ]]; do
 		read -p "Read from file or stdin (f/s): " file_or_stdin
