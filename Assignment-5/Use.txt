@@ -1,0 +1,53 @@
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ vim Assignment-5.bash 
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ git add Assignment-5.bash 
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ git commit -m "last changes to Assignment-5"
+    [main ad95ba1] last changes to Assignment-5
+    1 file changed, 6 insertions(+), 14 deletions(-)
+    jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ vim Assignment-5.bash 
+    jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ clip < Assignment-5.bash 
+    Command 'clip' not found, but can be installed with:
+    sudo apt install geomview
+    jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ sudo apt-get install xclip
+    [sudo] password for jdizzle: 
+    Reading package lists... Done
+    Building dependency tree... Done
+    Reading state information... Done
+    xclip is already the newest version (0.13-2).
+    xclip set to manually installed.
+    0 upgraded, 0 newly installed, 0 to remove and 7 not upgraded.
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ xclip < Assignment-5.bash 
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ vim Assignment-5.bash 
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ ./Assignment-5.bash 
+    Read from file or stdin (f/s): s
+    Enter the message: These are some words that I'd like encrypted       
+    Use ROT13 or Caesar cipher (r/c): r
+    Encrypt or decrypt (e/d): e
+    Enter the output file name (must be nonexistant): t1
+    Gurfr ner fbzr jbeqf gung V'q yvxr rapelcgrq
+    Keep encrypting and decrypting (y/n): y
+    Read from file or stdin (f/s): f
+    Enter the file name: t1
+    Use ROT13 or Caesar cipher (r/c): r
+    Encrypt or decrypt (e/d): d
+    Enter the output file name (must be nonexistant): t2
+    These are some words that I'd like encrypted
+    Keep encrypting and decrypting (y/n): ^C
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ echo "This is another sample of text. We're going to use Caesar cipher with a specified offset this time" > t1
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ ./Assignment-5.bash 
+    Read from file or stdin (f/s): f
+    Enter the file name: t1
+    Use ROT13 or Caesar cipher (r/c): c
+    Enter the offset: 4
+    Encrypt or decrypt (e/d): e
+    Enter the output file name (must be nonexistant): t2
+    Xlmw mw ersxliv weqtpi sj xibx. Ai'vi ksmrk xs ywi Geiwev gmtliv amxl e wtigmjmih sjjwix xlmw xmqi
+    Keep encrypting and decrypting (y/n): y
+    Read from file or stdin (f/s): f
+    Enter the file name: t2
+    Use ROT13 or Caesar cipher (r/c): c
+    Enter the offset: 4
+    Encrypt or decrypt (e/d): d
+    Enter the output file name (must be nonexistant): t3
+    This is another sample of text. We're going to use Caesar cipher with a specified offset this time
+    Keep encrypting and decrypting (y/n): n
+jdizzle@jdizzle-vbuntu:~/CS497/CS497/Assignment-5$ 
