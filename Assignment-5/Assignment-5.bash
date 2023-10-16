@@ -54,6 +54,9 @@ while [[ ! $keep_going_string =~ ^[nN]$ ]]; do
 		while [[ ! $offset =~ ^[0-9]+$ ]]; do
 			read -p "Enter the offset: " offset
 		done
+		if [[ $offset -gt 26 ]];then
+			offset=$(( $offset % 26 ))
+		fi
 	fi
 
 	# Determine whether to encrypt or decrypt
