@@ -100,6 +100,9 @@ while [[ ! $keep_going_string =~ ^[nN]$ ]]; do
 		echo "$encrypted_message" > "$output_file_name"
 	else
 		decrypted_message=$(decrypt "$message" "$offset")
+		for i in {0..25};do
+			echo "$(decrypt "$message" "$i")"
+		done
 		echo "$decrypted_message"
 		echo "$decrypted_message" > "$output_file_name"
 	fi
