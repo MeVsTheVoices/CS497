@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "caesar_cipher.h": "c"
-    }
+        "caesar_cipher.h": "c",
+        "string.h": "c"
+    },
+    "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\gcc.exe"
 }

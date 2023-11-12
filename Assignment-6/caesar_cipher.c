@@ -1,6 +1,7 @@
 #include "caesar_cipher.h"
 
-void caesar_cipher_charater(char &c, int shift) {
+
+void caesar_cipher_charater(char c, int shift) {
     if (shift > 26)
         shift %= 26;
     
@@ -8,14 +9,11 @@ void caesar_cipher_charater(char &c, int shift) {
         if ((c + shift) > 'Z')
             c = c + shift - 26;
         else
-            c += shift
+            c += shift;
     } else if (c >= 'a' && c <= 'z') {
         if ((c + shift) > 'Z')
             c = c + shift -26;
         else 
-            c += shift
+            c += shift;
     }
-}
-void caesar_cipher_string(std::string &str, int shift) {
-
 }
