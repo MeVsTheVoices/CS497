@@ -52,10 +52,6 @@ int main(int argc, char** argv) {
                                       &shift, &reverse, 
                                       &numberAllOutputLines, 
                                       inputFile);
-    printf("shift: %d\n", shift);
-    printf("reverse: %d\n", reverse);
-    printf("numberAllOutputLines: %d\n", numberAllOutputLines);
-    printf("inputFile: %s\n", inputFile);
     if (parseResult != 0) {
         printf("Usage: %s [-s shift] [-r] [-n] file\n", argv[0]);
         return parseResult;
