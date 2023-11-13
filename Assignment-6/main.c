@@ -4,6 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "caesar_cipher.h"
+
 int parseParameters(int argc, char** argv,
                     int* shift, int* reverse, 
                     int* numberAllOutputLines, char* inputFile) {
@@ -38,6 +40,7 @@ int parseParameters(int argc, char** argv,
         return 1;
     }
     *shift = atoi(shiftAsAString);
+    return 0;
 }
 
 int main(int argc, char** argv) {
@@ -49,9 +52,14 @@ int main(int argc, char** argv) {
                                       &shift, &reverse, 
                                       &numberAllOutputLines, 
                                       inputFile);
+    printf("shift: %d\n", shift);
+    printf("reverse: %d\n", reverse);
+    printf("numberAllOutputLines: %d\n", numberAllOutputLines);
+    printf("inputFile: %s\n", inputFile);
     if (parseResult != 0) {
         printf("Usage: %s [-s shift] [-r] [-n] file\n", argv[0]);
         return parseResult;
     }
+    caesar_cipher_file(inputFile, shift, reverse, numberAllOutputLines);
     return 0;
 }
