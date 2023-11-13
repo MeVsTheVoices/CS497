@@ -50,8 +50,9 @@ void caesar_cipher_file(char* fileName, int shift, int reverse, int numberLines)
             currentChar = buf[i];
             if (currentChar == '\n') {
                 currentLine++;
+                printf("\n");
                 if (numberLines)
-                    printf("\n%d ", currentLine);
+                    printf("%d ", currentLine);
             }
             else if (currentChar == EOF) {
                 printf("\n");
