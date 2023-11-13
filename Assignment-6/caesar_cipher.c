@@ -66,7 +66,6 @@ void caesar_cipher_file(char* fileName, int shift, int reverse, int numberLines)
         }
     }
     close(fileDescriptor);
-    printf("\n");
 }
 
 
