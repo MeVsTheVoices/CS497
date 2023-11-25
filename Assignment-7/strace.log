@@ -1,0 +1,127 @@
+execve("./a.out", ["./a.out"], 0x7ffc34c5e0b0 /* 76 vars */) = 0
+brk(NULL)                               = 0x56023fb73000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffd60cf7590) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5d02b25000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=58771, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 58771, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f5d02b16000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\244;\374\204(\337f#\315I\214\234\f\256\271\32"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f5d02800000
+mmap(0x7f5d02828000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f5d02828000
+mmap(0x7f5d029bd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f5d029bd000
+mmap(0x7f5d02a15000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7f5d02a15000
+mmap(0x7f5d02a1b000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f5d02a1b000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5d02b13000
+arch_prctl(ARCH_SET_FS, 0x7f5d02b13740) = 0
+set_tid_address(0x7f5d02b13a10)         = 45191
+set_robust_list(0x7f5d02b13a20, 24)     = 0
+rseq(0x7f5d02b140e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f5d02a15000, 16384, PROT_READ) = 0
+mprotect(0x56023f13f000, 4096, PROT_READ) = 0
+mprotect(0x7f5d02b5f000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f5d02b16000, 58771)           = 0
+rt_sigaction(SIGQUIT, {sa_handler=0x56023f13cfdb, sa_mask=[], sa_flags=SA_RESTORER|SA_INTERRUPT|SA_NODEFER|0xcf7758, sa_restorer=0x7f5d02842520}, NULL, 8) = 0
+getpid()                                = 45191
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+getrandom("\xda\xce\x83\x78\xc8\xe0\xc7\xf3", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x56023fb73000
+brk(0x56023fb94000)                     = 0x56023fb94000
+write(1, "Welcome to kbshell. My pid is 45"..., 36) = 36
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[1]: ", 12)            = 12
+read(0, "ls -la /home/jdizzle/Desktop\n", 80) = 29
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45280
+write(1, "[Child pid = 45280, background ="..., 40) = 40
+wait4(45280, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45280
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45280, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+write(1, "45280 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[2]: ", 12)            = 12
+read(0, "rm /home/jdizzle/Desktop/test.tx"..., 80) = 34
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45320
+write(1, "[Child pid = 45320, background ="..., 40) = 40
+wait4(45320, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45320
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45320, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+write(1, "45320 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[3]: ", 12)            = 12
+read(0, "touch /home/jdizzle/Desktop/test"..., 80) = 37
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45395
+write(1, "[Child pid = 45395, background ="..., 40) = 40
+wait4(45395, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45395
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45395, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+write(1, "45395 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[4]: ", 12)            = 12
+read(0, "cat /home/jdizzle/Desktop/test.t"..., 80) = 35
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45467
+write(1, "[Child pid = 45467, background ="..., 40) = 40
+wait4(45467, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45467
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45467, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+write(1, "45467 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[5]: ", 12)            = 12
+read(0, "ps\n", 80)                     = 3
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45497
+write(1, "[Child pid = 45497, background ="..., 40) = 40
+wait4(45497, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45497
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45497, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+write(1, "45497 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[6]: ", 12)            = 12
+read(0, "top\n", 80)                    = 4
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45519
+write(1, "[Child pid = 45519, background ="..., 40) = 40
+wait4(45519, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45519
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45519, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+write(1, "45519 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[7]: ", 12)            = 12
+read(0, "nano /home/jdizzle/Desktop/test."..., 80) = 36
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45597
+write(1, "[Child pid = 45597, background ="..., 40) = 40
+wait4(45597, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED|WCONTINUED, NULL) = 45597
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45597, si_uid=1000, si_status=0, si_utime=0, si_stime=2} ---
+write(1, "45597 exited, status 0\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[8]: ", 12)            = 12
+read(0, "sudo reboot\n", 80)            = 12
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5d02b13a10) = 45673
+write(1, "[Child pid = 45673, background ="..., 40) = 40
+wait4(45673, [{WIFEXITED(s) && WEXITSTATUS(s) == 1}], WSTOPPED|WCONTINUED, NULL) = 45673
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=45673, si_uid=1000, si_status=1, si_utime=0, si_stime=0} ---
+write(1, "45673 exited, status 1\n", 23) = 23
+getpid()                                = 45191
+waitid(P_PID, 45191, 0x7ffd60cf7340, WNOHANG, NULL) = -1 EINVAL (Invalid argument)
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd60cf73a0) = 0
+write(1, "jdshell[9]: ", 12)            = 12
+read(0, "exit\n", 80)                   = 5
+write(1, "jdshell exiting\n", 16)       = 16
+exit_group(0)                           = ?
++++ exited with 0 +++
