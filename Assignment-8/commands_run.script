@@ -1,0 +1,133 @@
+Script started on 2023-12-04 16:45:17-08:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="80" LINES="24"]
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497/CS497/Assignment-8[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497/CS497/Assignment-8[00m$ file assi[K[K[Kpplication 
+[?2004lapplication: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=0d6cd755931e7d576c001ef1315329c3a48f5904, for GNU/Linux 3.2.0, with debug_info, not stripped
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497/CS497/Assignment-8[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497/CS497/Assignment-8[00m$ strings --help
+[?2004lUsage: strings [option(s)] [file(s)]
+ Display printable strings in [file(s)] (stdin by default)
+ The options are:
+  -a - --all                Scan the entire file, not just the data section [default]
+  -d --data                 Only scan the data sections in the file
+  -f --print-file-name      Print the name of the file before each string
+  -n <number>               Locate & print any sequence of at least <number>
+    --bytes=<number>         displayable characters.  (The default is 4).
+  -t --radix={o,d,x}        Print the location of the string in base 8, 10 or 16
+  -w --include-all-whitespace Include all whitespace as valid string characters
+  -o                        An alias for --radix=o
+  -T --target=<BFDNAME>     Specify the binary file format
+  -e --encoding={s,S,b,l,B,L} Select character size and endianness:
+                            s = 7-bit, S = 8-bit, {b,l} = 16-bit, {B,L} = 32-bit
+  --unicode={default|show|invalid|hex|escape|highlight}
+  -U {d|s|i|x|e|h}          Specify how to treat UTF-8 encoded unicode characters
+  -s --output-separator=<string> String used to separate strings in output.
+  @<file>                   Read options from <file>
+  -h --help                 Display this information
+  -v -V --version           Print the program's version number
+strings: supported targets: elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 pei-i386 pe-x86-64 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-bigobj-x86-64 pe-i386 srec symbolsrec verilog tekhex binary ihex plugin
+Report bugs to <https://sourceware.org/bugzilla/>
+[?2004h]0;jdizzle@jdizzle-vbuntu: ~/CS497/CS497/Assignment-8[01;32mjdizzle@jdizzle-vbuntu[00m:[01;34m~/CS497/CS497/Assignment-8[00m$ strings application 
+[?2004l/lib64/ld-linux-x86-64.so.2
+inet_ntoa
+__cxa_finalize
+read
+write
+getpid
+__libc_start_main
+strcmp
+fprintf
+socket
+atoi
+close
+strlen
+bind
+htonl
+htons
+stderr
+listen
+perror
+accept
+exit
+__stack_chk_fail
+gethostbyaddr
+setsockopt
+libc.so.6
+GLIBC_2.4
+GLIBC_2.2.5
+GLIBC_2.34
+_ITM_deregisterTMCloneTable
+__gmon_start__
+_ITM_registerTMCloneTable
+PTE1
+u+UH
+usage: %s <port>
+y pid is %d
+ERROR opening socket
+ERROR on binding
+ERROR on listen
+ERROR on accept
+ERROR on gethostbyaddr
+ERROR on inet_ntoa
+server established connection with %s (%s)
+ERROR reading from socket
+server received %d bytes: %s
+quit
+ERROR writing to socket
+:*3$"
+GCC: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+w buf
+#msg
+/usr/lib/gcc/x86_64-linux-gnu/11/include
+/usr/include/x86_64-linux-gnu/bits
+/usr/include/x86_64-linux-gnu/bits/types
+/usr/include
+/usr/include/netinet
+/usr/include/arpa
+/usr/include/x86_64-linux-gnu/sys
+application.c
+stddef.h
+types.h
+struct_FILE.h
+FILE.h
+stdio.h
+unistd.h
+stdint-uintn.h
+sockaddr.h
+socket.h
+in.h
+netdb.h
+string.h
+inet.h
+socket.h
+stdlib.h
+socket_type.h
+__off_t
+short int
+_IO_read_ptr
+_chain
+accept
+strcmp
+GNU C17 11.4.0 -mtune=generic -march=x86-64 -g -gdwarf-4 -fasynchronous-unwind-tables -fstack-protector-strong -fstack-clash-protection -fcf-protection
+socket
+_shortbuf
+close
+_IO_buf_base
+SOCK_NONBLOCK
+long long unsigned int
+in_addr_t
+long long int
+_fileno
+_IO_read_end
+_flags
+__ssize_t
+_IO_buf_end
+_cur_column
+SOCK_STREAM
+_IO_codecvt
+_old_offset
+portno
+__uint16_t
+__uint32_t
+hostp
+sin_zero
+_IO_marker
+SOCK_RDM
+s_ad
